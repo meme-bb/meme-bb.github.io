@@ -9,12 +9,12 @@
         
         // Test for common internal app schemes
         const internalSchemes = [
-            'abc://',
+            'zomato://',
             'myapp://',
             'appname://',
-            'com.application.abc://',
-            'content://com.application.abc',
-            'content://com.application.abc.provider',
+            'com.application.zomato://',
+            'content://com.application.zomato',
+            'content://com.application.zomato.provider',
             'file:///android_asset/',
             'file:///android_res/'
         ];
@@ -59,9 +59,9 @@
             
             // Try to trigger app activities via intent URLs
             const intentUrls = [
-                'intent://main/#Intent;scheme=abc;package=com.application.abc;end',
-                'intent://settings/#Intent;scheme=abc;package=com.application.abc;end',
-                'intent:#Intent;action=android.intent.action.VIEW;package=com.application.abc;end'
+                'intent://main/#Intent;scheme=zomato;package=com.application.zomato;end',
+                'intent://settings/#Intent;scheme=zomato;package=com.application.zomato;end',
+                'intent:#Intent;action=android.intent.action.VIEW;package=com.application.zomato;end'
             ];
             
             intentUrls.forEach(url => {
