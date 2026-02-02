@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+</head>
+<body>
+    <h1>Testing JavaScript Interfaces</h1>
+    <div id="results">Testing...</div>
+    
+    <script>
+        // Test for common JavaScript interfaces
+        const interfaces = [
+            'Android', 'android', 'webkit', 'WebView',
+            'JSInterface', 'AppInterface', 'NativeInterface',
+            'Bridge', 'WebAppInterface', 'device',
+            'native', 'NativeAndroid', 'AndroidHandler',
+            'MyApp', 'App', 'NativeApp', 'WebViewInterface'
+        ];
+        
+        let resultsDiv = document.getElementById('results');
+        let found = [];
+        
+        // Test each interface
+        for (let iface of interfaces) {
+            try {
+                if (window[iface] && typeof window[iface] === 'object') {
+                    found.push(iface);
+                    
+                    // Try to get methods
+                    let methods = [];
+                    try {
+                        methods = Object.getOwnPropertyNames(window[iface]);
+                    } catch(e) {}
+                    
+                    resultsDiv.innerHTML += `
+                        <div style="background:#e0e0e0; padding:10px; margin:10px; border-radius:5px;">
+                            <h3>✅ Found: <b>${iface}</b></h3>
+                            <p>Methods: ${methods.length > 0 ? methods.join(', ') : 'Could not enumerate'}</p>
+                        </div>
+                    `;
+                }
+            } catch(e) {}
+        }
+        
+        if (found.length === 0) {
+            resultsDiv.innerHTML = '<div style="background:#ffcccc; padding:20px;">❌ No JavaScript interfaces found</div>';
+        } else {
+            resultsDiv.innerHTML += `<hr><h3>Summary: Found ${found.length} interface(s)</h3><p>${found.join(', ')}</p>`;
+        }
+        
+        // Try to call common methods if they exist
+        setTimeout(() => {
+            if (window.Android && typeof window.Android.showToast === 'function') {
+                try { window.Android.showToast('Test from WebView'); } catch(e) {}
+            }
+            if (window.WebView && typeof window.WebView.postMessage === 'function') {
+                try { window.WebView.postMessage('test'); } catch(e) {}
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
