@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="results">Testing storage access...</div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        // Test 1: Check if localStorage is available
+        try {
+            localStorage.setItem('test', 'webview_test');
+            const value = localStorage.getItem('test');
+            results.innerHTML += `<p>LocalStorage: ${value === 'webview_test' ? '✅ WORKING' : '❌ FAILED'}</p>`;
+            localStorage.removeItem('test');
+        } catch(e) {
+            results.innerHTML += `<p>LocalStorage: ❌ ${e.message}</p>`;
+        }
+        
+        // Test 2: Check cookies
+        results.innerHTML += `<p>Cookies length: ${document.cookie.length}</p>`;
+        if(document.cookie) {
+            results.innerHTML += `<p>Cookies found: ${document.cookie}</p>`;
+        }
+        
+        // Test 3: Simple same-origin request test
+        // Try to fetch the current page
+        fetch(window.location.href)
+            .then(r => {
+                if(r.ok) {
+                    results.innerHTML += `<p>Same-origin fetch: ✅ WORKING (${r.status})</p>`;
+                }
+            })
+            .catch(e => {
+                results.innerHTML += `<p>Same-origin fetch: ❌ ${e.message}</p>`;
+            });
+    </script>
+</body>
+</html>
