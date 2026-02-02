@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>App Internal Scheme Probe</h1>
+    <div id="results"></div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        // Test for common internal app schemes
+        const internalSchemes = [
+            'abc://',
+            'myapp://',
+            'appname://',
+            'com.application.abc://',
+            'content://com.application.abc',
+            'content://com.application.abc.provider',
+            'file:///android_asset/',
+            'file:///android_res/'
+        ];
+        
+        // Test each scheme
+        internalSchemes.forEach(scheme => {
+            const iframe = document.createElement('iframe');
+            iframe.style.display = 'none';
+            iframe.src = scheme + 'test';
+            iframe.onload = () => {
+                results.innerHTML += `<p>✅ ${scheme} - Loaded</p>`;
+            };
+            iframe.onerror = (e) => {
+                results.innerHTML += `<p>❌ ${scheme} - Failed</p>`;
+            };
+            document.body.appendChild(iframe);
+        });
+        
+        // Try to access app's content providers
+        setTimeout(() => {
+            results.innerHTML += '<h3>Trying content providers...</h3>';
+            
+            // Common content provider paths
+            const cpPaths = [
+                'content://settings/system',
+                'content://browser/bookmarks',
+                'content://contacts/people',
+                'content://media/external/images',
+                'content://downloads/all_downloads'
+            ];
+            
+            cpPaths.forEach(path => {
+                fetch(path)
+                    .then(() => results.innerHTML += `<p>✅ ${path} - Accessible!</p>`)
+                    .catch(e => results.innerHTML += `<p>❌ ${path} - ${e.message}</p>`);
+            });
+        }, 2000);
+        
+        // Try to launch the app's own activities
+        setTimeout(() => {
+            results.innerHTML += '<h3>Testing app internal activities...</h3>';
+            
+            // Try to trigger app activities via intent URLs
+            const intentUrls = [
+                'intent://main/#Intent;scheme=abc;package=com.application.abc;end',
+                'intent://settings/#Intent;scheme=abc;package=com.application.abc;end',
+                'intent:#Intent;action=android.intent.action.VIEW;package=com.application.abc;end'
+            ];
+            
+            intentUrls.forEach(url => {
+                const link = document.createElement('a');
+                link.href = url;
+                link.innerHTML = `Launch: ${url.substring(0, 50)}...`;
+                link.style.display = 'block';
+                results.appendChild(link);
+            });
+        }, 4000);
+    </script>
+</body>
+</html>
