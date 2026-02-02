@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <div id="results">Enumerating storage...</div>
+    
+    <script>
+        const results = document.getElementById('results');
+        
+        // List all localStorage keys
+        results.innerHTML += '<h3>LocalStorage Contents:</h3>';
+        for(let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            const value = localStorage.getItem(key);
+            results.innerHTML += `<p><b>${key}:</b> ${value.substring(0, 100)}${value.length > 100 ? '...' : ''}</p>`;
+        }
+        
+        if(localStorage.length === 0) {
+            results.innerHTML += '<p>No items in localStorage</p>';
+        }
+        
+        // Try to access IndexedDB
+        results.innerHTML += '<h3>Checking IndexedDB:</h3>';
+        if('indexedDB' in window) {
+            indexedDB.databases().then(dbs => {
+                results.innerHTML += `<p>Found ${dbs.length} database(s):</p>`;
+                dbs.forEach(db => {
+                    results.innerHTML += `<p>• ${db.name} (v${db.version})</p>`;
+                });
+            }).catch(e => {
+                results.innerHTML += `<p>Cannot list DBs: ${e.message}</p>`;
+            });
+        } else {
+            results.innerHTML += '<p>IndexedDB not available</p>';
+        }
+        
+        // Check current domain - is this the app's real domain?
+        results.innerHTML += `<h3>Current Domain:</h3><p>${window.location.hostname}</p>`;
+    </script>
+</body>
+</html>
