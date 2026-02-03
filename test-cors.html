@@ -1,0 +1,7 @@
+<script>
+fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
+    headers: {'Origin': 'https://github.io'}
+}).then(r => {
+    console.log('CORS headers:', r.headers.get('Access-Control-Allow-Origin'));
+});
+</script>
