@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Testing Interfaces...</h1>
+<div id="status"></div>
+<script>
+function log(msg) {
+    document.getElementById('status').innerHTML += msg + '<br>';
+}
+
+// Check if interfaces exist
+if (typeof Android !== 'undefined') {
+    log('✓ Android interface found!');
+    log('Methods: ' + Object.getOwnPropertyNames(Android).join(', '));
+} else {
+    log('✗ Android interface not found');
+}
+
+if (typeof HTMLOUT !== 'undefined') {
+    log('✓ HTMLOUT interface found!');
+    log('Methods: ' + Object.getOwnPropertyNames(HTMLOUT).join(', '));
+} else {
+    log('✗ HTMLOUT interface not found');
+}
+</script>
+</body>
+</html>
