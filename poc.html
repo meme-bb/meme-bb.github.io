@@ -1,7 +1,9 @@
 <!doctype html>
+<html>
+<body>
 <script>
-fetch("https://www.zomato.com/webroutes/getPage?page_url=/profile")
-  .then(r => r.text())
-  .then(t => alert(t.slice(0,200)))
-  .catch(e => alert("FETCH_FAIL"));
+location.href =
+  "https://www.zomato.com/webroutes/getPage?page_url=/profile";
 </script>
+</body>
+</html>
