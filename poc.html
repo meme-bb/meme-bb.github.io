@@ -1,9 +1,17 @@
+<!doctype html>
 <html>
 <body>
 <script>
-setInterval(() => {
-  if (window.JsBridge) {
+let tries = 0;
+let t = setInterval(() => {
+  tries++;
+  if (window.JsBridge !== undefined) {
     alert("FOUND");
+    clearInterval(t);
+  }
+  if (tries > 10) {
+    alert("NOT FOUND");
+    clearInterval(t);
   }
 }, 500);
 </script>
