@@ -1,7 +1,11 @@
 <html>
 <body>
 <script>
-alert(typeof window.JsBridge);
+setInterval(() => {
+  if (window.JsBridge) {
+    alert("FOUND");
+  }
+}, 500);
 </script>
 </body>
 </html>
