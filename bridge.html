@@ -2,76 +2,38 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WebView Test</title>
+    <title>JsBridge Test</title>
     <style>
         body {
             font-family: monospace;
             padding: 20px;
             background: #000;
             color: #0f0;
+            font-size: 16px;
         }
-        .result {
-            margin: 10px 0;
-            padding: 10px;
-            border: 1px solid #0f0;
-        }
-        .found {
-            background: #003300;
-            color: #0f0;
-            font-weight: bold;
-        }
-        .not-found {
-            background: #330000;
-            color: #f00;
-        }
+        .found { color: #0f0; font-weight: bold; }
+        .method { color: #ff0; margin: 5px 0; }
     </style>
 </head>
 <body>
-    <h1>WebView JavaScript Bridge Test</h1>
-    <div id="results"></div>
+    <h1>WebView JsBridge Test</h1>
+    <div id="result"></div>
 
     <script>
-        var results = document.getElementById('results');
+        var output = document.getElementById('result');
         
-        function test(name, obj) {
-            var div = document.createElement('div');
-            div.className = 'result';
+        if (typeof JsBridge !== 'undefined') {
+            output.innerHTML = '<p class="found">✓ JsBridge FOUND!</p>';
+            output.innerHTML += '<p>Type: ' + typeof JsBridge + '</p>';
             
-            var type = typeof obj;
-            if (type === 'object' && obj !== null) {
-                div.className += ' found';
-                div.innerHTML = '<strong>✓ FOUND: ' + name + '</strong><br>';
-                div.innerHTML += 'Type: ' + type + '<br>';
-                
-                // List all methods
-                try {
-                    var methods = Object.getOwnPropertyNames(obj);
-                    div.innerHTML += 'Methods: ' + methods.join(', ');
-                } catch(e) {
-                    div.innerHTML += 'Error listing methods: ' + e.message;
-                }
-            } else {
-                div.className += ' not-found';
-                div.innerHTML = '✗ NOT FOUND: ' + name + ' (type: ' + type + ')';
+            // List all methods
+            output.innerHTML += '<p>Available methods:</p>';
+            for (var key in JsBridge) {
+                output.innerHTML += '<div class="method">- ' + key + '</div>';
             }
-            
-            results.appendChild(div);
+        } else {
+            output.innerHTML = '<p style="color:red">✗ JsBridge NOT found</p>';
         }
-        
-        // Test common interface names
-        test('AndroidInterface', typeof AndroidInterface !== 'undefined' ? AndroidInterface : undefined);
-        test('Android', typeof Android !== 'undefined' ? Android : undefined);
-        test('JSBridge', typeof JSBridge !== 'undefined' ? JSBridge : undefined);
-        test('WebViewInterface', typeof WebViewInterface !== 'undefined' ? WebViewInterface : undefined);
-        test('Bridge', typeof Bridge !== 'undefined' ? Bridge : undefined);
-        test('NativeInterface', typeof NativeInterface !== 'undefined' ? NativeInterface : undefined);
-        
-        // Check if JavaScript is actually enabled
-        var jsTest = document.createElement('div');
-        jsTest.className = 'result found';
-        jsTest.innerHTML = '<strong>✓ JavaScript is ENABLED</strong>';
-        results.insertBefore(jsTest, results.firstChild);
     </script>
 </body>
 </html>
