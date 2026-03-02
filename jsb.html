@@ -1,0 +1,10 @@
+<html><body id="out">
+<script>
+  try {
+    window.JsBridge.openDeeplink("zomato://webview?url=https://www.zomato.com/webroutes/getPage?page_url=/profile");
+    document.body.innerHTML = "fired";
+  } catch(e) {
+    document.body.innerHTML = "err: " + e;
+  }
+</script>
+</body></html>
