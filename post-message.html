@@ -9,7 +9,7 @@
         setTimeout(function() {
             var target = document.getElementById('targetApp').contentWindow;
             // The '*' allows the message to be sent regardless of target origin
-            target.postMessage("'-alert(document.domain)-'", '*');
+            target.postMessage(''-alert(document.domain)-'', '*');
         }, 3000);
     </script>
 </body>
